@@ -11,6 +11,7 @@ import com.robertx22.mine_and_slash.gui.inv_gui.actions.auto_salvage.ToggleAutoS
 import com.robertx22.mine_and_slash.gui.texts.ExileTooltips;
 import com.robertx22.mine_and_slash.gui.texts.textblocks.*;
 import com.robertx22.mine_and_slash.gui.texts.textblocks.affixdatablocks.SimpleItemStatBlock;
+import com.robertx22.mine_and_slash.itemstack.CommonTooltips;
 import com.robertx22.mine_and_slash.itemstack.ExileStack;
 import com.robertx22.mine_and_slash.mmorpg.registers.common.items.RarityItems;
 import com.robertx22.mine_and_slash.mmorpg.registers.common.items.SlashItems;
@@ -105,6 +106,8 @@ public class JewelItemData implements ICommonDataItem<GearRarity>, IStatCtx {
     public void BuildTooltip(TooltipContext ctx) {
 
 
+        ExileStack ex = ExileStack.of(ctx.stack);
+
         ctx.tooltip.clear();
 
 
@@ -149,7 +152,7 @@ public class JewelItemData implements ICommonDataItem<GearRarity>, IStatCtx {
             });
         }
         tip.accept(new RequirementBlock(this.lvl))
-                .accept(new SalvageBlock(this))
+                .accept(new SalvageBlock(this, ex))
                 .accept(new AdditionalBlock(() -> {
                     var up = uniq.getCraftedTier().upgradeStack.get();
                     return ImmutableList.of(
@@ -160,6 +163,8 @@ public class JewelItemData implements ICommonDataItem<GearRarity>, IStatCtx {
                 }).showWhen(() -> this.auraStats.isEmpty() && uniq.isUnique() && uniq.isCraftableUnique() && uniq.getCraftedTier().canUpgradeMore()))
 
                 .accept(new OperationTipBlock().setShift().setAlt());
+
+        tip.accept(CommonTooltips.potentialCorruptionAndQuality(ex));
 
         tip.accept(new ClickToOpenGuiBlock());
 

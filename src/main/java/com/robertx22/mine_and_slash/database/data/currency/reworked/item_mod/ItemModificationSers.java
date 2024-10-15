@@ -8,6 +8,8 @@ public class ItemModificationSers {
     public static String INCREMENT_USES = "increment_uses";
     public static String ADD_SOCKET = "add_socket";
     public static String UPGRADE_AFFIX_RARITY = "upgrade_affix_rarity";
+    public static String UPGRADE_CORRUPT_AFFIX_RARITY = "upgrade_corrupt_affix_rarity";
+    public static String UPGRADE_JEWEL_AFFIX_RARITY = "upgrade_jewel_affix_rarity";
     public static String SET_AFFIX_RARITY = "set_affix_rarity";
     public static String DOWNGRADE_AFFIX_RARITY = "downgrade_affix_rarity";
     public static String CORRUPT_GEAR = "corrupt_gear";
@@ -17,8 +19,7 @@ public class ItemModificationSers {
     public static String REROLL_AFFIX = "reroll_affix";
     public static String REROLL_INFUSION = "reroll_infusion";
     public static String UPGRADE_MAP_RARITY = "upgrade_map_rarity";
-    public static String CAP_PROF_DROPS = "cap_prof_drops";
     public static String JEWEL_CORRUPT = "corrupt_jewel";
-    public static String REROLL_AFFIX_NUMBERS = "corrupt_jewel";
+    public static String REROLL_AFFIX_NUMBERS = "reroll_affix_numbers";
 
 }

@@ -8,12 +8,6 @@ add_gear_quality
 add_potential
 add_socket
 affix_number_reroll
-cap_prof_drops_0
-cap_prof_drops_1
-cap_prof_drops_2
-cap_prof_drops_3
-cap_prof_drops_4
-cap_prof_drops_5
 corrupt_gear
 corrupt_gear_no_affix
 destroy_item
@@ -22,6 +16,7 @@ downgrade_random_affix
 increment_uses_level_up
 increment_uses_random_mythic_affix
 increment_uses_sharpening_stone
+increment_uses_sure_jewel_up
 jewel_corrupt
 map_rarity_upgrade
 reduce_5_perc_unique_stats
@@ -43,6 +38,8 @@ sharpening_stone_quality_2
 sharpening_stone_quality_3
 sharpening_stone_quality_4
 sharpening_stone_quality_5
+up_corrupt_affix
+upgrade_jewel_affix_rarity
 upgrade_lowest_affix
 upgrade_random_affix
 upgrade_specific_rar_common

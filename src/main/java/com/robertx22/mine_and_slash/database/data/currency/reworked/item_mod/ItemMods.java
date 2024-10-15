@@ -1,14 +1,11 @@
 package com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod;
 
 import com.robertx22.mine_and_slash.database.data.MinMax;
-import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.all.AddPotentialItemMod;
-import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.all.DestroyItemMod;
-import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.all.DoNothingItemMod;
-import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.all.IncrementUsesItemMod;
+import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.all.*;
 import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.gear.*;
 import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.jewel.CorruptJewelItemMod;
+import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.jewel.UpgradeJewelAffixRarityMod;
 import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.map.UpgradeMapRarityItemMod;
-import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.prof.CapProfDropsItemMod;
 import com.robertx22.mine_and_slash.database.data.currency.reworked.item_req.ItemReqs;
 import com.robertx22.mine_and_slash.database.data.currency.reworked.keys.*;
 import com.robertx22.mine_and_slash.uncommon.interfaces.data_items.IRarity;
@@ -37,11 +34,6 @@ public class ItemMods extends ExileKeyHolder<ItemModification> {
                 return new SetAffixRarityItemMod(id, new SetAffixRarityItemMod.Data(new UpgradeAffixItemMod.AffixFinderData(UpgradeAffixItemMod.AffixFinder.LOWEST_RARITY_AFFIX, ""), info.rar));
             });
 
-    public ExileKeyMap<ItemModification, SkillItemTierKey> CAP_PROF_DROPS = new ExileKeyMap<ItemModification, SkillItemTierKey>(this, "cap_prof_drops")
-            .ofSkillItemTiers()
-            .build((id, info) -> {
-                return new CapProfDropsItemMod(id, new CapProfDropsItemMod.Data(info.tier.levelRange.getMinLevel()));
-            });
 
     public ExileKeyMap<ItemModification, MaxUsesKey> MAXIMUM_USES = new ExileKeyMap<ItemModification, MaxUsesKey>(this, "increment_uses")
             .ofList(ItemReqs.Datas.allMaxUses(), x -> new MaxUsesKey(x))
@@ -69,6 +61,14 @@ public class ItemMods extends ExileKeyHolder<ItemModification> {
     public ExileKey<ItemModification, KeyInfo> ADD_25_POTENTIAL = ExileKey.ofId(this, "add_potential", x -> new AddPotentialItemMod(x.GUID(), new AddPotentialItemMod.Data(25)));
     public ExileKey<ItemModification, KeyInfo> JEWEL_CORRUPTION = ExileKey.ofId(this, "jewel_corrupt", x -> new CorruptJewelItemMod(x.GUID()));
     public ExileKey<ItemModification, KeyInfo> REROLL_AFFIX_NUMBERS = ExileKey.ofId(this, "affix_number_reroll", x -> new RerollAffixNumbersItemMod(x.GUID()));
+
+    // jewels
+    public ExileKey<ItemModification, KeyInfo> UPGRADE_JEWEL_AFFIX_RARITY = ExileKey.ofId(this, "upgrade_jewel_affix_rarity", x -> new UpgradeJewelAffixRarityMod(x.GUID(), UpgradeAffixItemMod.AffixFinder.RANDOM_AFFIX.get()));
+
+
+    // any
+
+    public ExileKey<ItemModification, KeyInfo> UPGRADE_CORRUPTION_AFFIX_RARITY = ExileKey.ofId(this, "up_corrupt_affix", x -> new UpgradeCorruptionAffixMod(x.GUID(), UpgradeAffixItemMod.AffixFinder.RANDOM_AFFIX.get()));
 
 
     @Override

@@ -15,6 +15,7 @@ import com.robertx22.mine_and_slash.gui.texts.textblocks.usableitemblocks.UsageB
 import com.robertx22.mine_and_slash.itemstack.CustomItemData;
 import com.robertx22.mine_and_slash.itemstack.ExileStack;
 import com.robertx22.mine_and_slash.itemstack.ExileStacklessData;
+import com.robertx22.mine_and_slash.itemstack.StackKeys;
 import com.robertx22.mine_and_slash.loot.LootInfo;
 import com.robertx22.mine_and_slash.loot.blueprints.GearBlueprint;
 import com.robertx22.mine_and_slash.mmorpg.registers.common.items.RarityItems;
@@ -101,13 +102,19 @@ public class StatSoulData implements ICommonDataItem<GearRarity>, ISettableLevel
 
     }
 
-    public void insertAsUnidentifiedOn(ItemStack stack, Player p) {
+    public ItemStack insertAsUnidentifiedOn(ItemStack s, Player p) {
+
+        ItemStack copy = s.copy();
+        
         // todo replacing souls needs to support replacing more than just gearitemdata.. otherwise you could just delete potential or corruption or whatever
         if (gear != null) {
-            gear.saveTo(stack);
+            gear.saveTo(copy);
+            return copy;
         } else {
-            var e = this.createGearData(stack, p);
-            e.apply(ExileStack.of(stack));
+            var e = this.createGearData(copy, p);
+            var ex = ExileStack.of(copy);
+            e.apply(ex);
+            return ex.getStack();
         }
     }
 
@@ -180,9 +187,9 @@ public class StatSoulData implements ICommonDataItem<GearRarity>, ISettableLevel
 
         var ex = b.createData();
 
-        ex.getOrCreate(x -> x.POTENTIAL).potential *= GameBalanceConfig.get().CRAFTED_GEAR_POTENTIAL_MULTI;
-        ex.getOrCreate(x -> x.CUSTOM).data.set(CustomItemData.KEYS.CRAFTED, true);
-        ex.getOrCreate(x -> x.CUSTOM).data.set(CustomItemData.KEYS.SALVAGING_DISABLED, !this.can_sal);
+        ex.getOrCreate(StackKeys.POTENTIAL).potential *= GameBalanceConfig.get().CRAFTED_GEAR_POTENTIAL_MULTI;
+        ex.getOrCreate(StackKeys.CUSTOM).data.set(CustomItemData.KEYS.CRAFTED, true);
+        ex.getOrCreate(StackKeys.CUSTOM).data.set(CustomItemData.KEYS.SALVAGING_DISABLED, !this.can_sal);
 
         return ex;
     }
@@ -282,7 +289,7 @@ public class StatSoulData implements ICommonDataItem<GearRarity>, ISettableLevel
 
         exileTooltips
                 .accept(new AdditionalBlock(Collections.singletonList(Chats.RIGHT_CLICK_TO_GEN_ITEM.locName().withStyle(ChatFormatting.BLUE))).showWhen(() -> cangen))
-                .accept(new SalvageBlock(this));
+                .accept(new SalvageBlock(this, ExileStack.of(stack)));
 
         return exileTooltips;
     }

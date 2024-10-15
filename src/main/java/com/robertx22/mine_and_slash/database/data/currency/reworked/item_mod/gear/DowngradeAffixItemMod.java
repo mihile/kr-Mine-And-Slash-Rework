@@ -3,6 +3,7 @@ package com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.ge
 import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.GearModification;
 import com.robertx22.mine_and_slash.database.data.currency.reworked.item_mod.ItemModificationSers;
 import com.robertx22.mine_and_slash.itemstack.ExileStack;
+import com.robertx22.mine_and_slash.itemstack.StackKeys;
 import net.minecraft.network.chat.MutableComponent;
 
 public class DowngradeAffixItemMod extends GearModification {
@@ -20,8 +21,8 @@ public class DowngradeAffixItemMod extends GearModification {
 
     @Override
     public void modifyGear(ExileStack stack) {
-        stack.GEAR.edit(gear -> {
-            data.finder_data.finder().getAffix(gear, data.finder_data).ifPresent(affix -> {
+        stack.get(StackKeys.GEAR).edit(gear -> {
+            data.finder_data.finder().getAffix(gear.affixes.getPrefixesAndSuffixes(), data.finder_data).ifPresent(affix -> {
                 affix.downgradeRarity();
             });
         });

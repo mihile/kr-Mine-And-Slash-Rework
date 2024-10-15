@@ -16,7 +16,7 @@ public class StackData<T> {
         this.stack = stack;
         this.saver = saver;
 
-        stack.allDatas.add(this);
+        stack.map.put(getId(), this);
     }
 
 
@@ -67,6 +67,12 @@ public class StackData<T> {
         save();
     }
 
+    public void editIfHas(Consumer<T> c) {
+        if (has()) {
+            edit(c);
+        }
+    }
+
     public boolean setIfHas(T data) {
         if (has()) {
             set(data);
@@ -84,6 +90,6 @@ public class StackData<T> {
     public void resetGetterCache() {
         getter = Suppliers.memoize(getterNon);
     }
-    
+
 
 }
